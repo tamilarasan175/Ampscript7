@@ -1,0 +1,43 @@
+
+You are working for a car service company that has identified a product recall affecting several vehicles. The company's goal is to notify each affected customer and request them to return their vehicle for a service repair. This campaign aims to ensure customer safety and maintain high service standards.
+As part of this initiative, you are tasked with creating a personalized email for each customer. The email must include specific details about their vehicle and the recall process, encouraging prompt action. The personalization will make the message more engaging and relevant to each recipient.
+
+
+
+%%[
+SET @fName = [First Name]
+SET @carMak = [CarMake]
+SET @carModel = [CarModel]
+SET @carColor = [CarColor]
+SET @registerDate = [RegistrationDate]
+SET @regNo = [rego]
+/*name formatting */
+SET @trimFname = TRIM(@fName)
+SET @properCase = PROPERCASE(@trimFname)
+/*car details formatting */
+SET @upperCar = UPPERCASE(@carMak)
+/*dateformatting */
+SET @dateFormate =FORMAT(@registerDate,"dd/MM/yyyy")
+SET @systemDate = Now(1)
+SET @localDate = SystemDateToLocalDate(@systemDate)
+SET @recallDate = DATEADD(@localDate, 14, "D")
+SET @formarRecall = FORMAT(@recallDate,"MMMM dd, yyyy" )
+]%%
+
+
+Subject: Important Recall Notice for Your %%=v(@upperCar)=%% %%=v(@carModel)=%%
+<br><br>
+Hello %%=v(@properCase)=%%, <br><br>
+We are writing to inform you of an important recall for your %%=v(@upperCar)=%% %%=v(@carModel)=%%. According to our records, your vehicle with the rego number %%=v(@regNo)=%%, registered on %%=v(@dateFormate)=%%, needs to be brought in for a service repair.
+<br><br>
+Please return your %%=v(@upperCar)=%% %%=v(@carModel)=%% %%=v(@carColor)=%% colour by %%=v(@formarRecall)=%% to ensure your vehicle is safe to drive.
+<br><br>
+We apologize for any inconvenience this may cause and appreciate your prompt attention to this matter.
+<br><br>
+Best regards,
+<br><br>
+Your Car Service Team
+<br><br>
+P.S. If you have any questions or need to reschedule, please contact us at support@carservice.com.
+<br><br>
+Unsubscribe here to stop receiving all communications from us.
